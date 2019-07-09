@@ -15,12 +15,23 @@ func main() {
 
 	var f func(*html.Node)
 	f = func(n *html.Node) {
-		if n.Type == html.ElementNode && n.Data == "a" {
-			for _, a := range n.Attr {
-				fmt.Println(a.Val)
-				if a.Key == "href" {
-					fmt.Println(a.Val)
-					break
+		if n.Type == html.ElementNode {
+			switch n.Data {
+			case "a":
+				for _, a := range n.Attr {
+					fmt.Println(a)
+					if a.Key == "href" {
+						fmt.Println(a.Val)
+						break
+					}
+				}
+			case "p":
+				fmt.Println(n.Attr)
+				for _, p := range n.Attr {
+					if p.Key == "class" {
+						fmt.Println(p.Val)
+						break
+					}
 				}
 			}
 		}
@@ -42,7 +53,7 @@ var page = `
     <title>Document</title>
 </head>
 <body>
-	<p>Hello World</p>
+	<p class="test">Hello World</p>
 	<a href="foo">Foo</a>
 </body>
 </html>
