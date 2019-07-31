@@ -1,6 +1,7 @@
 package main
 
 import (
+	"bytes"
 	"fmt"
 	"io/ioutil"
 	"regexp"
@@ -27,4 +28,14 @@ func main() {
 		}
 	}
 	fmt.Println(returnArray)
+}
+
+func normalize(phone string) string {
+	var buf bytes.Buffer
+	for _, ch := range phone {
+		if ch >= '0' && ch <= '9' {
+			buf.WriteRune(ch)
+		}
+	}
+	return buf.String()
 }
